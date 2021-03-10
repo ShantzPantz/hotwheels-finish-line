@@ -4,16 +4,25 @@
 //Uses Gikfun 5mm 940nm IR LED's emitters and receivers: EK8443
 
 #include <Arduino.h>
+#include <RaceManager.h>
+
+#define CLK_PIN   13
+#define DATA_PIN  11
+#define CS_PIN    10
 
 int finishSensors[4] = {A0, A1, A2, A3}; // Sensor analog inputs, from lane 1 - 4
 int sensorValues[4] = {0, 0, 0, 0}; // Hold sensor values
 
 int sensorThresh = 500; //Sets the trigger sensing threshold of the IR receivers. ~1000 = high
 
+
+RaceManager race(CLK_PIN, DATA_PIN, CS_PIN, 4, 4);
+
 void setup() 
 {
   Serial.begin(9600);
   Serial.println("Setup");
+  //Display display(CLK_PIN, DATA_PIN, CS_PIN, 4, 4); 
 }
 
 void loop() 
@@ -38,6 +47,7 @@ void loop()
       Serial.print(i+1); 
       Serial.print(" wins!");
       Serial.println();
+      race.update();
       delay(5000);
     }
   }
