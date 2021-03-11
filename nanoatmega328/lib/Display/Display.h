@@ -10,6 +10,7 @@ class Display
 {
     public:
       Display(int clk_pin, int data_pin, int cs_pin, int max_devices=4, int num_zones=4);
+      ~Display();
       void update();
       
     private:

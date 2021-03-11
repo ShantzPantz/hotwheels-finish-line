@@ -11,44 +11,21 @@
 #define CS_PIN    10
 
 int finishSensors[4] = {A0, A1, A2, A3}; // Sensor analog inputs, from lane 1 - 4
-int sensorValues[4] = {0, 0, 0, 0}; // Hold sensor values
+// int sensorValues[4] = {0, 0, 0, 0}; // Hold sensor values
 
 int sensorThresh = 500; //Sets the trigger sensing threshold of the IR receivers. ~1000 = high
 
 
-RaceManager race(CLK_PIN, DATA_PIN, CS_PIN, 4, 4);
+RaceManager race(CLK_PIN, DATA_PIN, CS_PIN, 4, 4, finishSensors);
 
 void setup() 
 {
   Serial.begin(9600);
   Serial.println("Setup");
-  //Display display(CLK_PIN, DATA_PIN, CS_PIN, 4, 4); 
 }
 
 void loop() 
 {
-
-  // read all sensor values
-  Serial.println("sensor values");
-  for(int i=0; i<4; i++) 
-  {
-    sensorValues[i] = analogRead(finishSensors[i]);
-    Serial.println(sensorValues[i]);
-  }
-  
-  delay(50);
-
-  for(int i=0; i<4; i++) 
-  {
-    if(sensorValues[i] < sensorThresh)
-    {
-      Serial.println(sensorValues[i]);
-      Serial.print("Lane ");
-      Serial.print(i+1); 
-      Serial.print(" wins!");
-      Serial.println();
-      race.update();
-      delay(5000);
-    }
-  }
+  race.update();
+  delay(1000);
 }
