@@ -19,7 +19,8 @@ class RaceManager
           STARTUP,
           SLEEP,
           WAITING_FOR_WINNER,
-          WAITING_FOR_FINISHERS
+          WAITING_FOR_FINISHERS,
+          SHOW_RESULTS
       };
 
       RaceState getState(); 
@@ -30,10 +31,16 @@ class RaceManager
       Sensors* _sensors;
 
       void update_results();
+      void update_display(int lane, int place);
 
       int _results[4];
       int _result_idx;
       //char places[4][5];
+
+      long _last_trigger_time;
+      
+      static const int WAIT_FOR_FINISH_MS = 3000; // the amount of time we wait before calling the race over. 
+
 };
 
 #endif

@@ -12,6 +12,7 @@ class Display
       Display(int clk_pin, int data_pin, int cs_pin, int max_devices=4, int num_zones=4);
       ~Display();
       void update();
+      void set_lane_display(int lane, char * text);
       
     private:
       int _numZones;
